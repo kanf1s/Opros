@@ -34,8 +34,6 @@ questions = [
     'Ультима тест?'
 ]
 
-# Массив для хранения ответов
-#answers = [''] * len(questions)
 answers = [None, None, None, None, None, None, None]
 
 
@@ -51,34 +49,35 @@ try:
         list_of_answer = [last_answer.answer1, last_answer.answer2, last_answer.answer3, last_answer.answer4, last_answer.answer5,
                       last_answer.answer6, last_answer.answer7]
         max_id = last_answer.id
-        print(list_of_answer)
+        #print(list_of_answer)
         try:
             past_write = list_of_answer.index(None)
         except:
             past_write = 0
-        print(past_write)
-        for i in range(past_write, len(questions)):
-            user_input = input(f'{questions[i]}\n')
-            list_of_answer[i] = user_input
-            answer_obj = Answer(
-            id=max_id,
-            answer1=list_of_answer[0],
-            answer2=list_of_answer[1],
-            answer3=list_of_answer[2],
-            answer4=list_of_answer[3],
-            answer5=list_of_answer[4],
-            answer6=list_of_answer[5],
-            answer7=list_of_answer[6]
-        )
-            session.merge(answer_obj)
-            session.commit()
-        max_id +=1
-        print('Дозапись завершена.')
+        #print(past_write)
+        if past_write != 0:
+            for i in range(past_write, len(questions)):
+                user_input = input(f'{questions[i]}\n')
+                list_of_answer[i] = user_input
+                answer_obj = Answer(
+                id=max_id,
+                answer1=list_of_answer[0],
+                answer2=list_of_answer[1],
+                answer3=list_of_answer[2],
+                answer4=list_of_answer[3],
+                answer5=list_of_answer[4],
+                answer6=list_of_answer[5],
+                answer7=list_of_answer[6]
+            )
+                session.merge(answer_obj)
+                session.commit()
+            print('Дозапись завершена.\n')
     
     
     if not last_answer:
         max_id = 1
-    #new_id = max_id + 1
+    else:
+        max_id +=1
     
     for i, question in enumerate(questions):
         user_input = input(f'{question}\n')
