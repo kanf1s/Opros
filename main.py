@@ -72,6 +72,7 @@ try:
                 session.merge(answer_obj)
                 session.commit()
             print('Дозапись завершена.\n')
+            exit()
     
     
     if not last_answer:
